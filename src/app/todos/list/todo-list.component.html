@@ -1,0 +1,19 @@
+<h2>To-Dos Übersicht</h2>
+<table *ngIf="todos; else noTodos">
+  <tr>
+    <td>Titel</td>
+    <td>Beschreibung</td>
+    <td>Fälligkeit</td>
+    <td>Abgeschlossen</td>
+  </tr>
+  <tr *ngFor="let todo of todos">
+    <td>{{todo.title}}</td>
+    <td>{{todo.description}}</td>
+    <td>{{todo.dueDate | date}}</td>
+    <td>{{todo.done}}</td>
+  </tr>
+</table>
+
+<ng-template #noTodos>
+  Es existieren noch keine To-Dos.
+</ng-template>
