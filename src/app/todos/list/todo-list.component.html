@@ -1,12 +1,12 @@
 <h2>To-Dos Übersicht</h2>
-<table *ngIf="todos; else noTodos">
+<table *ngIf="(todos | async)?.length; else noTodos">
   <tr>
     <td>Titel</td>
     <td>Beschreibung</td>
     <td>Fälligkeit</td>
     <td>Abgeschlossen</td>
   </tr>
-  <tr *ngFor="let todo of todos">
+  <tr *ngFor="let todo of todos | async">
     <td>{{todo.title}}</td>
     <td>{{todo.description}}</td>
     <td>{{todo.dueDate | date}}</td>

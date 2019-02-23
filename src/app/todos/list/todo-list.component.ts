@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
+import { Observable } from 'rxjs';
 
 @Component({
   templateUrl: './todo-list.component.html',
 })
 export class TodoListComponent {
-  public todos: Todo[];
+  public todos: Observable<Todo[]>;
 
   constructor(service: TodoService) {
-    service.getAll().subscribe(todos => this.todos = todos);
+    this.todos = service.getAll();
   }
 }
