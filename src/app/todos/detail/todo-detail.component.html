@@ -1,0 +1,23 @@
+<h2>Detail</h2>
+<table *ngIf="(todo | async) as todo; else notFound">
+  <tr>
+    <td>Titel:</td>
+    <td>{{todo.title}}</td>
+  </tr>
+  <tr>
+    <td>Beschreibung</td>
+    <td>{{todo.description}}</td>
+  </tr>
+  <tr>
+    <td>Fälligkeit</td>
+    <td>{{todo.dueDate | date}}</td>
+  </tr>
+  <tr>
+    <td>Abgeschlossen</td>
+    <td>{{todo.done}}</td>
+  </tr>
+</table>
+
+<ng-template #notFound>
+  Das gewünschte To-Do konnte nicht gefunden werden.
+</ng-template>

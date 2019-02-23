@@ -30,4 +30,8 @@ export class TodoService {
   public getAll(): Observable<Todo[]> {
     return of(MOCK_TODOS);
   }
+
+  public get(id: number|string): Observable<Todo> {
+    return of(MOCK_TODOS[id]);
+  }
 }
