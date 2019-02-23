@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -8,12 +8,15 @@ import { Observable } from 'rxjs';
 @Component({
   templateUrl: './todo-detail.component.html',
 })
-export class TodoDetailComponent {
+export class TodoDetailComponent implements OnInit {
   public todo: Observable<Todo>;
 
-  constructor(service: TodoService, route: ActivatedRoute) {
-    this.todo = route.paramMap.pipe(
-      switchMap((params: ParamMap) => service.get(params.get('id'))),
+  constructor(private service: TodoService, private route: ActivatedRoute) {
+  }
+
+  public ngOnInit() {
+    this.todo = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => this.service.get(params.get('id'))),
     );
   }
 }

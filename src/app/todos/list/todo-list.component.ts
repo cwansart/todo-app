@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
 import { Observable } from 'rxjs';
@@ -6,10 +6,13 @@ import { Observable } from 'rxjs';
 @Component({
   templateUrl: './todo-list.component.html',
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnInit {
   public todos: Observable<Todo[]>;
 
-  constructor(service: TodoService) {
-    this.todos = service.getAll();
+  constructor(private service: TodoService) {
+  }
+
+  public ngOnInit() {
+    this.todos = this.service.getAll();
   }
 }
