@@ -16,7 +16,7 @@ export class TodoDetailComponent implements OnInit {
 
   public ngOnInit() {
     this.todo = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.service.get(params.get('id'))),
+      switchMap((params: ParamMap) => this.service.get(+params.get('id'))),
     );
   }
 }

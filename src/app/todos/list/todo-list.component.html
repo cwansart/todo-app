@@ -5,12 +5,14 @@
     <td>Beschreibung</td>
     <td>Fälligkeit</td>
     <td>Abgeschlossen</td>
+    <td>Aktionen</td>
   </tr>
   <tr *ngFor="let todo of todos | async">
     <td>{{todo.title}}</td>
     <td>{{todo.description}}</td>
     <td>{{todo.dueDate | date}}</td>
     <td>{{todo.done}}</td>
+    <td><a [routerLink]="['/todos', todo.id]">anzeigen</a></td>
   </tr>
 </table>
 
