@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Todo } from './todo';
 import { Observable, of } from 'rxjs';
 
-const MOCK_TODOS: Todo[] = [
+let TODOS: Todo[] = [
   {
     id: 1,
     title: 'Test1',
@@ -31,10 +31,19 @@ const MOCK_TODOS: Todo[] = [
 })
 export class TodoService {
   public getAll(): Observable<Todo[]> {
-    return of(MOCK_TODOS);
+    return of(TODOS);
   }
 
   public get(id: number): Observable<Todo> {
-    return of(MOCK_TODOS[id - 1]);
+    return of(TODOS[id - 1]);
+  }
+
+  public post(todo: Todo): Observable<Todo> {
+    const newTodo: Todo = {
+      ...todo,
+      id: TODOS[TODOS.length - 1].id + 1,
+    };
+    TODOS.push(newTodo);
+    return of(newTodo);
   }
 }

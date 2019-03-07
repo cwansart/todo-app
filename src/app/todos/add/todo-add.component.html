@@ -1,0 +1,34 @@
+<h2>Neues To-Do hinzufügen</h2>
+
+<form (ngSubmit)="onSubmit()" #form="ngForm">
+  <div>
+    <label for="title">Titel:</label>
+    <input type="text" id="title" name="title" [(ngModel)]="title" appError required>
+  </div>
+
+  <div>
+    <label for="description">Beschreibung:</label>
+    <input type="text" id="description" name="description" [(ngModel)]="description">
+  </div>
+
+  <div>
+    <label for="dueDate">Fälligkeit:</label>
+    <input
+      type="text"
+      id="dueDate"
+      name="dueDate"
+      [(ngModel)]="dueDate"
+      placeholder="MM.TT.JJJJ hh:mm"
+      [appDate]="dueDate"
+      appError
+      required>
+  </div>
+
+  <div>
+    <label for="done">Abgeschlossen? </label>
+    <input type="checkbox" id="done" name="done" [(ngModel)]="done">
+  </div>
+
+  <input type="submit" value="hinzufügen" [disabled]="form.invalid">
+  <a routerLink="/todos">zurück zur Übersicht</a>
+</form>

@@ -1,4 +1,7 @@
 <h2>To-Dos Übersicht</h2>
+
+<a routerLink="/todos/add">To-Do hinzufügen</a>
+
 <table *ngIf="(todos | async)?.length; else noTodos">
   <tr>
     <td>Titel</td>

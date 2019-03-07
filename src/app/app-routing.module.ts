@@ -2,11 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TodoListComponent } from './todos/list/todo-list.component';
 import { TodoDetailComponent } from './todos/detail/todo-detail.component';
+import { TodoAddComponent } from './todos/add/todo-add.component';
 
 const routes: Routes = [
   {
     path: 'todos',
     children: [
+      {
+        path: 'add',
+        component: TodoAddComponent,
+      },
       {
         path: ':id',
         component: TodoDetailComponent,
