@@ -13,10 +13,14 @@ export class TodoListComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.todos = this.service.getAll();
+    this.refreshTodos();
   }
 
   public delete(id: number) {
-    this.service.delete(id).subscribe(() => this.todos = this.service.getAll());
+    this.service.delete(id).subscribe(() => this.refreshTodos());
+  }
+
+  private refreshTodos() {
+    this.todos = this.service.getAll();
   }
 }
