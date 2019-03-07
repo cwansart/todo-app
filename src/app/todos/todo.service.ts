@@ -41,9 +41,15 @@ export class TodoService {
   public post(todo: Todo): Observable<Todo> {
     const newTodo: Todo = {
       ...todo,
-      id: TODOS[TODOS.length - 1].id + 1,
+      id: TODOS.length ? TODOS[TODOS.length - 1].id + 1 : 1,
     };
     TODOS.push(newTodo);
     return of(newTodo);
+  }
+
+  public delete(id: number): Observable<boolean> {
+    console.log('deleteing ', id, TODOS);
+    TODOS = TODOS.filter(todo => todo.id !== id);
+    return of(null);
   }
 }
