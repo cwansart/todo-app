@@ -48,8 +48,8 @@ export class TodoService {
   }
 
   public delete(id: number): Observable<boolean> {
-    console.log('deleteing ', id, TODOS);
+    const found = TODOS.find(todo => todo.id === id) !== undefined;
     TODOS = TODOS.filter(todo => todo.id !== id);
-    return of(null);
+    return of(found);
   }
 }
