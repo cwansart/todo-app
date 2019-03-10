@@ -1,4 +1,4 @@
-import { Directive, forwardRef, Input } from '@angular/core';
+import { Directive, forwardRef } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 import moment from 'moment';
 
@@ -13,9 +13,6 @@ import moment from 'moment';
   ],
 })
 export class DateValidationDirective implements Validator {
-  @Input('appDate')
-  public value;
-
   public validate(control: AbstractControl): ValidationErrors | null {
     const date = moment(control.value, ['DD.MM.YYYY', 'DD.MM.YYYY HH:mm'], true);
     return date.isValid() ? null : { invalidDate: true };
