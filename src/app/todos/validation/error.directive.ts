@@ -28,7 +28,7 @@ export class ErrorDirective implements OnInit, OnDestroy {
       map(() => this.control.errors !== null ? Object.keys(this.control.errors) : []),
       distinctUntilChanged(),
     ).subscribe(errors => {
-      // TODO: find a cleaner solution
+      // TODO: find a cleaner solution; use debugger to find out what happens.
       errorContainer.innerText = '';
       for (const code of errors) {
         const text = this.renderer.createText(this.service.getErrorMessage(code));

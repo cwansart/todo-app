@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TodoListComponent } from './todos/list/todo-list.component';
 import { TodoDetailComponent } from './todos/detail/todo-detail.component';
 import { TodoAddComponent } from './todos/add/todo-add.component';
+import { TodoEditComponent } from './todos/edit/todo-edit.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
       {
         path: 'add',
         component: TodoAddComponent,
+      },
+      {
+        path: 'edit/:id',
+        component: TodoEditComponent,
       },
       {
         path: ':id',

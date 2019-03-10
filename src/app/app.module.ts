@@ -9,6 +9,7 @@ import { TodoAddComponent } from './todos/add/todo-add.component';
 import { FormsModule } from '@angular/forms';
 import { DateValidationDirective } from './todos/validation/date-validation.directive';
 import { ErrorDirective } from './todos/validation/error.directive';
+import { TodoEditComponent } from './todos/edit/todo-edit.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ErrorDirective } from './todos/validation/error.directive';
     TodoListComponent,
     TodoDetailComponent,
     TodoAddComponent,
+    TodoEditComponent,
     ErrorDirective,
     DateValidationDirective,
   ],
@@ -27,4 +29,5 @@ import { ErrorDirective } from './todos/validation/error.directive';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -52,4 +52,19 @@ export class TodoService {
     TODOS = TODOS.filter(todo => todo.id !== id);
     return of(found);
   }
+
+  public put(id: number, changed: Todo): Observable<boolean> {
+    if (TODOS.find(todo => todo.id === id) !== undefined) {
+      const listWithoutCurrent = TODOS.filter(todo => todo.id !== id);
+      TODOS = [
+        ...listWithoutCurrent,
+        {
+          id,
+          ...changed,
+        },
+      ];
+      return of(true);
+    }
+    return of(false);
+  }
 }
