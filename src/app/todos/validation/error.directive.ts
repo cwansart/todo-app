@@ -31,6 +31,13 @@ export class ErrorDirective implements OnInit, OnDestroy {
       // TODO: find a cleaner solution; use debugger to find out what happens.
       errorContainer.innerText = '';
       for (const code of errors) {
+        // TODO: add styling
+        /*
+        <div class="form-control">
+          <input type="text" class="input" placeholder="Dein Name">
+          <div class="error">This field is <strong>required</strong></div>
+        </div>
+         */
         const text = this.renderer.createText(this.service.getErrorMessage(code));
         const div = this.renderer.createElement('div');
         this.renderer.addClass(div, 'error-text');

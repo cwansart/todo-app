@@ -1,6 +1,6 @@
 <h2>To-Dos Übersicht</h2>
 
-<a routerLink="/todos/add">To-Do hinzufügen</a>
+<a routerLink="/todos/add" class="link">To-Do hinzufügen</a>
 
 <table *ngIf="(todos | async)?.length; else noTodos">
   <tr>
@@ -16,8 +16,8 @@
     <td>{{todo.dueDate | date}}</td>
     <td>{{todo.done}}</td>
     <td>
-      <a [routerLink]="['/todos', todo.id]">anzeigen</a>
-      <a href="javascript:void(0)" (click)="delete(todo.id)">löschen</a>
+      <a [routerLink]="['/todos', todo.id]" class="link">anzeigen</a>
+      <a href="javascript:void(0)" (click)="delete(todo.id)" class="link">löschen</a>
     </td>
   </tr>
 </table>

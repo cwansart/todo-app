@@ -1,25 +1,25 @@
 <h2>Detail</h2>
-<table *ngIf="(todo | async) as todo; else notFound">
-  <tr>
-    <td>Titel:</td>
-    <td>{{todo.title}}</td>
-  </tr>
-  <tr>
-    <td>Beschreibung</td>
-    <td>{{todo.description}}</td>
-  </tr>
-  <tr>
-    <td>Fälligkeit</td>
-    <td>{{todo.dueDate | date}}</td>
-  </tr>
-  <tr>
-    <td>Abgeschlossen</td>
-    <td>{{todo.done}}</td>
-  </tr>
-</table>
+
+// TODO: @Adnan, are there grids with auto line break?
+<section class="section">
+  <div class="container">
+    <div class="card w-6" style="background-image: url(https://www.openknowledge.de//wp-content/uploads/2019/01/headway-1120645-unsplash-752x321.jpg);" *ngIf="(todo | async) as todo; else notFound">
+      <div class="card__content card__content--event">
+        <div class="card__header">
+          <div class="section-header">
+            <h3 class="section-header__secondary">{{todo.dueDate | date}} ({{todo.done ? 'erledigt' : 'nicht erledigt'}})</h3>
+            <h2 class="section-header__primary">{{todo.title}}</h2>
+          </div>
+        </div>
+        <div class="card__body">{{todo.description}}</div>
+        <div class="card__footer"><a class="btn btn--read-more" href="#">bearbeiten</a></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <ng-template #notFound>
   Das gewünschte To-Do konnte nicht gefunden werden.
 </ng-template>
 
-<a routerLink="/todos">zurück zur Übersicht</a>
+<a routerLink="/todos" class="link">zurück zur Übersicht</a>
