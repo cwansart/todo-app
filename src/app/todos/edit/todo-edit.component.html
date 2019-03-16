@@ -3,18 +3,19 @@
 <form (ngSubmit)="onSubmit()" #form="ngForm">
   <div class="form-control">
     <label for="title">Titel:</label>
-    <input type="text" id="title" name="title" [(ngModel)]="title" appError required>
+    <input type="text" class="input" id="title" name="title" [(ngModel)]="title" appError required>
   </div>
 
   <div class="form-control">
     <label for="description">Beschreibung:</label>
-    <input type="text" id="description" name="description" [(ngModel)]="description">
+    <input type="text" class="input" id="description" name="description" [(ngModel)]="description">
   </div>
 
   <div class="form-control">
     <label for="dueDate">Fälligkeit:</label>
     <input
       type="text"
+      class="input"
       id="dueDate"
       name="dueDate"
       [(ngModel)]="dueDate"
@@ -25,10 +26,12 @@
   </div>
 
   <div class="form-control">
+    <input type="checkbox" class="input" id="done" name="done" [(ngModel)]="done">
     <label for="done">Abgeschlossen? </label>
-    <input type="checkbox" id="done" name="done" [(ngModel)]="done">
   </div>
 
-  <input type="submit" value="speichern" [disabled]="form.invalid">
-  <a routerLink="/todos" class="link">zurück zur Übersicht</a>
+  <div class="form-control">
+    <input type="submit" class="btn btn--blue" value="speichern" [disabled]="form.invalid">&nbsp;
+    <a routerLink="/todos" class="link">zurück zur Übersicht</a>
+  </div>
 </form>

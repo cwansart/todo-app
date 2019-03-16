@@ -2,25 +2,26 @@
 
 <a routerLink="/todos/add" class="link">To-Do hinzufügen</a>
 
-<table *ngIf="(todos | async)?.length; else noTodos">
-  <tr>
-    <td>Titel</td>
-    <td>Beschreibung</td>
-    <td>Fälligkeit</td>
-    <td>Abgeschlossen</td>
-    <td>Aktionen</td>
-  </tr>
-  <tr *ngFor="let todo of todos | async">
-    <td>{{todo.title}}</td>
-    <td>{{todo.description}}</td>
-    <td>{{todo.dueDate | date}}</td>
-    <td>{{todo.done}}</td>
-    <td>
-      <a [routerLink]="['/todos', todo.id]" class="link">anzeigen</a>
-      <a href="javascript:void(0)" (click)="delete(todo.id)" class="link">löschen</a>
-    </td>
-  </tr>
-</table>
+<section class="section"  *ngIf="(todos | async)?.length; else noTodos">
+  <div class="container">
+    <div class="card w-6" *ngFor="let todo of todos | async">
+      <div class="card__content card__content--event">
+        <div class="card__header">
+          <div class="section-header">
+            <h3 class="section-header__secondary">{{todo.dueDate | date}} ({{todo.done ? 'erledigt' : 'nicht erledigt'}})</h3>
+            <h2 class="section-header__primary">{{todo.title}}</h2>
+          </div>
+        </div>
+        <div class="card__body">{{todo.description}}</div>
+        <div class="card__footer">
+          <a class="btn btn--read-more" [routerLink]="['/todos', todo.id]">anzeigen</a>
+          <a class="btn btn--read-more" [routerLink]="['/todos/edit', todo.id]">bearbeiten</a>
+          <a class="btn btn--read-more" href="javascript:void(0)" (click)="delete(todo.id)">löschen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <ng-template #noTodos>
   Es existieren noch keine To-Dos.
