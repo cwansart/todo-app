@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TodoService } from '../todo.service';
+import { RestTodoService } from '../service/rest-todo.service';
 import { Router } from '@angular/router';
 import moment from 'moment';
 
@@ -13,7 +13,7 @@ export class TodoAddComponent {
   public done: boolean;
   public lockForm = false;
 
-  constructor(private service: TodoService, private router: Router) {
+  constructor(private service: RestTodoService, private router: Router) {
   }
 
   public onSubmit() {

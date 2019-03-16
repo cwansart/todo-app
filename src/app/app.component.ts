@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BackendSelectionService, BackendType } from './todos/service/backend-selection.service';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  constructor(private service: BackendSelectionService) {
+  }
+
+  public setRestBackend() {
+    this.service.setBackend(BackendType.Rest);
+  }
+
+  public setGraphqlBackend() {
+    this.service.setBackend(BackendType.Graphql);
+  }
 }

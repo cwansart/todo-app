@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../todo';
-import { TodoService } from '../todo.service';
+import { RestTodoService } from '../service/rest-todo.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class TodoListComponent implements OnInit {
   public todos: Observable<Todo[]>;
 
-  constructor(private service: TodoService) {
+  constructor(private service: RestTodoService) {
   }
 
   public ngOnInit() {

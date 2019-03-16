@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoService } from '../todo.service';
+import { RestTodoService } from '../service/rest-todo.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Todo } from '../todo';
@@ -17,7 +17,7 @@ export class TodoEditComponent implements OnInit {
   public done: boolean;
   public lockForm = false;
 
-  constructor(private service: TodoService, private router: Router, private route: ActivatedRoute) {
+  constructor(private service: RestTodoService, private router: Router, private route: ActivatedRoute) {
   }
 
   public ngOnInit() {

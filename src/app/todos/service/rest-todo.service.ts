@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Todo } from './todo';
+import { Todo } from '../todo';
 import { Observable, of } from 'rxjs';
+import { TodoService } from './todo.service';
 
 let TODOS: Todo[] = [
   {
@@ -29,7 +30,7 @@ let TODOS: Todo[] = [
 @Injectable({
   providedIn: 'root',
 })
-export class TodoService {
+export class RestTodoService implements TodoService {
   public getAll(): Observable<Todo[]> {
     return of(TODOS);
   }
