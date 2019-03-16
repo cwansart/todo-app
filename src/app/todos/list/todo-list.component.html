@@ -14,9 +14,10 @@
         </div>
         <div class="card__body">{{todo.description}}</div>
         <div class="card__footer">
-          <a class="btn btn--read-more" [routerLink]="['/todos', todo.id]">anzeigen</a>
-          <a class="btn btn--read-more" [routerLink]="['/todos/edit', todo.id]">bearbeiten</a>
-          <a class="btn btn--read-more" href="javascript:void(0)" (click)="delete(todo.id)">löschen</a>
+          <a class="btn" [routerLink]="['/todos', todo.id]">anzeigen</a>
+          <a class="btn" [routerLink]="['/todos/edit', todo.id]">bearbeiten</a>
+          <a class="btn" href="javascript:void(0)" (click)="delete(todo.id)">löschen</a>
+          <a class="btn" href="javascript:void(0)" (click)="done(todo)" *ngIf="!todo.done">erledigen</a>
         </div>
       </div>
     </div>

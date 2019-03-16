@@ -62,7 +62,7 @@ export class TodoService {
           id,
           ...changed,
         },
-      ];
+      ].sort((a, b) => a.id - b.id);
       return of(true);
     }
     return of(false);
