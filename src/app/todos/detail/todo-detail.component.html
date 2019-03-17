@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="card__body">{{todo.description}}</div>
-        <div class="card__footer"><a class="btn btn--read-more" href="#">bearbeiten</a></div>
+        <div class="card__footer"><a class="btn btn--read-more" [routerLink]="['/todos/edit', todo.id]" queryParamsHandling="merge">bearbeiten</a></div>
       </div>
     </div>
   </div>
