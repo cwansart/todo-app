@@ -14,7 +14,6 @@ export class BackendSelectionService implements TodoService {
   private service: TodoService;
 
   constructor(injector: Injector, config: ConfigService, route: ActivatedRoute) {
-    console.log('Calling constructor');
     route.queryParamMap.subscribe(queryMap => {
       if (!queryMap.has('backendType')) {
         console.log(`Loading default backend (${config.defaultBackend === BackendType.Rest ? 'REST' : 'GraphQL'})`);
