@@ -1,71 +1,49 @@
 import { Injectable } from '@angular/core';
 import { Todo } from '../todo';
-import { Observable, of } from 'rxjs';
+import { Observable, of, pipe } from 'rxjs';
 import { TodoService } from './todo.service';
-
-let TODOS: Todo[] = [
-  {
-    id: 1,
-    title: 'Test1',
-    description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-    dueDate: new Date('2019-01-01'),
-    done: false,
-  },
-  {
-    id: 2,
-    title: 'Test2',
-    description: 'labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores',
-    dueDate: new Date(),
-    done: true,
-  },
-  {
-    id: 3,
-    title: 'Test3',
-    description: 'et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-    dueDate: new Date('2019-12-31'),
-    done: false,
-  },
-];
+import { HttpClient } from '@angular/common/http';
+import { ConfigService } from './config.service';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RestTodoService implements TodoService {
+  constructor(private http: HttpClient, private config: ConfigService) {
+  }
+
   public getAll(): Observable<Todo[]> {
-    return of(TODOS);
+    return this.http.get<Todo[]>(`${this.config.restBackendUrl}/todos`).pipe(
+      map(todos => todos || []),
+    );
   }
 
   public get(id: number): Observable<Todo> {
-    return of(TODOS[id - 1]);
+    return this.http.get<Todo>(`${this.config.restBackendUrl}/todos/${id}`);
   }
 
   public post(todo: Todo): Observable<Todo> {
-    const newTodo: Todo = {
-      ...todo,
-      id: TODOS.length ? TODOS[TODOS.length - 1].id + 1 : 1,
-    };
-    TODOS.push(newTodo);
-    return of(newTodo);
+    return this.http.post<Todo>(`${this.config.restBackendUrl}/todos`, todo);
   }
 
   public delete(id: number): Observable<boolean> {
-    const found = TODOS.find(todo => todo.id === id) !== undefined;
-    TODOS = TODOS.filter(todo => todo.id !== id);
-    return of(found);
+    return this.http.delete<null>(`${this.config.restBackendUrl}/todos/${id}`).pipe(
+      pipe(() => of(true)),
+      catchError((err) => {
+        console.error('Could not delete todo', err);
+        return of(false);
+      }),
+    );
   }
 
   public put(id: number, changed: Todo): Observable<boolean> {
-    if (TODOS.find(todo => todo.id === id) !== undefined) {
-      const listWithoutCurrent = TODOS.filter(todo => todo.id !== id);
-      TODOS = [
-        ...listWithoutCurrent,
-        {
-          id,
-          ...changed,
-        },
-      ].sort((a, b) => a.id - b.id);
-      return of(true);
-    }
-    return of(false);
+    return this.http.put<null>(`${this.config.restBackendUrl}/todos/${id}`, changed).pipe(
+      pipe(() => of(true)),
+      catchError((err) => {
+        console.error('Could not update todo', err);
+        return of(false);
+      }),
+    );
   }
 }

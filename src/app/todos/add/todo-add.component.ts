@@ -26,6 +26,10 @@ export class TodoAddComponent {
     }).subscribe(todo => {
       this.lockForm = false;
       this.router.navigate(['/todos', todo.id]);
+    }, error => {
+      // TODO: add error handling in the frontend
+      console.error('Could not add todo due to an error', error);
+      this.router.navigate(['/todos']);
     });
   }
 }
