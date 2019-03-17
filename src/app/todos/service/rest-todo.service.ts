@@ -14,16 +14,19 @@ export class RestTodoService implements TodoService {
   }
 
   public getAll(): Observable<Todo[]> {
+    console.log(`Calling RestTodoService.getAll`);
     return this.http.get<Todo[]>(`${this.config.restBackendUrl}/todos`).pipe(
       map(todos => todos || []),
     );
   }
 
   public get(id: number): Observable<Todo> {
+    console.log(`Calling RestTodoService.get with id ${id}`);
     return this.http.get<Todo>(`${this.config.restBackendUrl}/todos/${id}`);
   }
 
   public post(todo: Todo): Observable<Todo> {
+    console.log(`Calling RestTodoService.post with todo`, todo);
     return this.http.post<Todo>(`${this.config.restBackendUrl}/todos`, {
       title: todo.title,
       description: todo.description || '',
@@ -33,6 +36,7 @@ export class RestTodoService implements TodoService {
   }
 
   public delete(id: number): Observable<boolean> {
+    console.log(`Calling RestTodoService.delete with id ${id}`);
     return this.http.delete<null>(`${this.config.restBackendUrl}/todos/${id}`).pipe(
       pipe(() => of(true)),
       catchError((err) => {
@@ -43,6 +47,7 @@ export class RestTodoService implements TodoService {
   }
 
   public put(id: number, changed: Todo): Observable<boolean> {
+    console.log(`Calling RestTodoService.get with id ${id} and todo`, changed);
     return this.http.put<null>(`${this.config.restBackendUrl}/todos/${id}`, {
       title: changed.title,
       description: changed.description || '',

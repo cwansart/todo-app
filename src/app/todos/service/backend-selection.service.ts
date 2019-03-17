@@ -19,8 +19,7 @@ export class BackendSelectionService implements TodoService {
   }
 
   public setBackend(type: BackendType) {
-    // tslint:disable-next-line:no-console
-    console.info(`Settings backend to ${type === BackendType.Rest ? 'REST' : 'GraphQL'}`);
+    console.log(`Set backend to ${type === BackendType.Rest ? 'REST' : 'GraphQL'}`);
     this.service = this.injector.get(type === BackendType.Rest ? RestTodoService : GraphqlTodoService);
   }
 
