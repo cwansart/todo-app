@@ -24,7 +24,12 @@ export class RestTodoService implements TodoService {
   }
 
   public post(todo: Todo): Observable<Todo> {
-    return this.http.post<Todo>(`${this.config.restBackendUrl}/todos`, todo);
+    return this.http.post<Todo>(`${this.config.restBackendUrl}/todos`, {
+      title: todo.title,
+      description: todo.description || '',
+      dueDate: todo.dueDate,
+      done: todo.done,
+    });
   }
 
   public delete(id: number): Observable<boolean> {
@@ -38,7 +43,12 @@ export class RestTodoService implements TodoService {
   }
 
   public put(id: number, changed: Todo): Observable<boolean> {
-    return this.http.put<null>(`${this.config.restBackendUrl}/todos/${id}`, changed).pipe(
+    return this.http.put<null>(`${this.config.restBackendUrl}/todos/${id}`, {
+      title: changed.title,
+      description: changed.description || '',
+      dueDate: changed.dueDate,
+      done: changed.done
+    }).pipe(
       pipe(() => of(true)),
       catchError((err) => {
         console.error('Could not update todo', err);
