@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../todo';
-import { RestTodoService } from '../service/rest-todo.service';
 import { Observable } from 'rxjs';
+import { BackendSelectionService } from '../service/backend-selection.service';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   templateUrl: './todo-list.component.html',
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class TodoListComponent implements OnInit {
   public todos: Observable<Todo[]>;
 
-  constructor(private service: RestTodoService) {
+  constructor(private service: BackendSelectionService) {
   }
 
   public ngOnInit() {

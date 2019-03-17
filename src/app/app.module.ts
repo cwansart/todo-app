@@ -12,8 +12,9 @@ import { ErrorDirective } from './todos/validation/error.directive';
 import { TodoEditComponent } from './todos/edit/todo-edit.component';
 import { HttpClientModule } from '@angular/common/http';
 import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
-import { HttpLink } from 'apollo-angular-link-http';
+import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ConfigService } from './todos/service/config.service';
 
 @NgModule({
   declarations: [
@@ -27,21 +28,24 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     AppRoutingModule,
     ApolloModule,
-    HttpClientModule,
+    HttpLinkModule,
   ],
   providers: [
     {
       provide: APOLLO_OPTIONS,
-      useFactory: (httpLink: HttpLink) => {
+      useFactory: (httpLink: HttpLink, config: ConfigService) => {
         return {
-          link: httpLink.create({ uri: '/graphql-backend' }),
           cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: config.graphqlBackendUrl,
+          })
         };
       },
-      deps: [HttpLink],
+      deps: [HttpLink, ConfigService]
     }
   ],
   bootstrap: [AppComponent]

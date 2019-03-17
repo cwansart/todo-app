@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BackendSelectionService, BackendType } from './todos/service/backend-selection.service';
+import { BackendSelectionService } from './todos/service/backend-selection.service';
+import { BackendType } from './todos/service/config.service';
 
 @Component({
   selector: 'app-root',

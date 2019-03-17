@@ -4,13 +4,9 @@ import { RestTodoService } from './rest-todo.service';
 import { GraphqlTodoService } from './graphql-todo.service';
 import { Todo } from '../todo';
 import { Observable } from 'rxjs';
+import { BackendType, ConfigService } from './config.service';
 
 // TODO: Solve this via router. /REST and /GraphQL route, loading the adequate service.
-
-export enum BackendType {
-  Rest,
-  Graphql,
-}
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +14,8 @@ export enum BackendType {
 export class BackendSelectionService implements TodoService {
   private service: TodoService;
 
-  constructor(private injector: Injector) {
+  constructor(private injector: Injector, config: ConfigService) {
+    this.service = injector.get(config.defaultBackend === BackendType.Rest ? RestTodoService : GraphqlTodoService);
   }
 
   public setBackend(type: BackendType) {

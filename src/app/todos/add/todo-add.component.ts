@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { RestTodoService } from '../service/rest-todo.service';
 import { Router } from '@angular/router';
 import moment from 'moment';
+import { BackendSelectionService } from '../service/backend-selection.service';
 
 @Component({
   templateUrl: './todo-add.component.html',
@@ -13,16 +13,16 @@ export class TodoAddComponent {
   public done: boolean;
   public lockForm = false;
 
-  constructor(private service: RestTodoService, private router: Router) {
+  constructor(private service: BackendSelectionService, private router: Router) {
   }
 
   public onSubmit() {
     this.lockForm = true;
     this.service.post({
       title: this.title,
-      description: this.description,
+      description: this.description || '',
       dueDate: moment(this.dueDate, ['DD.MM.YYYY', 'DD.MM.YYYY HH:mm']).toDate(),
-      done: this.done,
+      done: !!this.done,
     }).subscribe(todo => {
       this.lockForm = false;
       this.router.navigate(['/todos', todo.id]);
