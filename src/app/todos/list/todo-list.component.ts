@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Todo } from '../todo';
 import { Observable } from 'rxjs';
 import { BackendSelectionService } from '../service/backend-selection.service';
-import { debounceTime } from 'rxjs/operators';
 
 @Component({
   templateUrl: './todo-list.component.html',
