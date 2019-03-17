@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { TodoService } from '../service/todo.service';
 import moment from 'moment';
-import { BackendSelectionService } from '../service/backend-selection.service';
 
 @Component({
   templateUrl: './todo-edit.component.html',
@@ -15,7 +15,7 @@ export class TodoEditComponent implements OnInit {
   public done: boolean;
   public lockForm = false;
 
-  constructor(private service: BackendSelectionService, private router: Router, private route: ActivatedRoute) {
+  constructor(private service: TodoService, private router: Router, private route: ActivatedRoute) {
   }
 
   public ngOnInit() {
@@ -40,7 +40,7 @@ export class TodoEditComponent implements OnInit {
       done: this.done,
     }).subscribe(() => {
       this.lockForm = false;
-      this.router.navigate(['/todos', this.id]);
+      this.router.navigate(['/todos', this.id], { queryParamsHandling: 'merge' });
     });
   }
 }

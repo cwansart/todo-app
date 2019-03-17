@@ -2,7 +2,7 @@
   <nav class="nav">
     <div class="container">
       <div class="nav__content">
-        <a routerLink="/" class="nav__logo">
+        <a routerLink="/" queryParamsHandling="merge" class="nav__logo">
           <img width="190" height="86"
                src="assets/OPK_Logo_waag_kl_RGB-e1486736462466-190x86.png"
                class="attachment-page-logo size-page-logo" alt=""
@@ -19,11 +19,11 @@
         <div class="nav__links">
           <ul class="nav__links-content">
             <li class="nav__link">
-              <a href="javascript:void(0);" (click)="setRestBackend()">REST</a>
+              <a href="/todos?backendType=rest">REST</a>
             </li>
 
             <li class="nav__link">
-              <a href="javascript:void(0);" (click)="setGraphqlBackend()">GraphQL</a>
+              <a href="/todos?backendType=graphql">GraphQL</a>
             </li>
           </ul>
         </div>

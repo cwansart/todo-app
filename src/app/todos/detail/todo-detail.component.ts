@@ -3,7 +3,7 @@ import { Todo } from '../todo';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { BackendSelectionService } from '../service/backend-selection.service';
+import { TodoService } from '../service/todo.service';
 
 @Component({
   templateUrl: './todo-detail.component.html',
@@ -11,7 +11,7 @@ import { BackendSelectionService } from '../service/backend-selection.service';
 export class TodoDetailComponent implements OnInit {
   public todo: Observable<Todo>;
 
-  constructor(private service: BackendSelectionService, private route: ActivatedRoute) {
+  constructor(private service: TodoService, private route: ActivatedRoute) {
   }
 
   public ngOnInit() {

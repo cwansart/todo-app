@@ -1,6 +1,6 @@
 <h2>To-Dos Übersicht</h2>
 
-<a routerLink="/todos/add" class="link">To-Do hinzufügen</a>
+<a routerLink="/todos/add" queryParamsHandling="merge" class="link">To-Do hinzufügen</a>
 
 <section class="section"  *ngIf="(todos | async)?.length; else noTodos">
   <div class="container">
@@ -14,8 +14,8 @@
         </div>
         <div class="card__body">{{todo.description}}</div>
         <div class="card__footer">
-          <a class="btn" [routerLink]="['/todos', todo.id]">anzeigen</a>
-          <a class="btn" [routerLink]="['/todos/edit', todo.id]">bearbeiten</a>
+          <a class="btn" [routerLink]="['/todos', todo.id]" queryParamsHandling="merge">anzeigen</a>
+          <a class="btn" [routerLink]="['/todos/edit', todo.id]" queryParamsHandling="merge">bearbeiten</a>
           <a class="btn" href="javascript:void(0)" (click)="delete(todo.id)">löschen</a>
           <a class="btn" href="javascript:void(0)" (click)="done(todo)" *ngIf="!todo.done">erledigen</a>
         </div>

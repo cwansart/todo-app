@@ -5,8 +5,7 @@ import { GraphqlTodoService } from './graphql-todo.service';
 import { Todo } from '../todo';
 import { Observable } from 'rxjs';
 import { BackendType, ConfigService } from './config.service';
-
-// TODO: Solve this via router. /REST and /GraphQL route, loading the adequate service.
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -14,13 +13,18 @@ import { BackendType, ConfigService } from './config.service';
 export class BackendSelectionService implements TodoService {
   private service: TodoService;
 
-  constructor(private injector: Injector, config: ConfigService) {
-    this.service = injector.get(config.defaultBackend === BackendType.Rest ? RestTodoService : GraphqlTodoService);
-  }
-
-  public setBackend(type: BackendType) {
-    console.log(`Set backend to ${type === BackendType.Rest ? 'REST' : 'GraphQL'}`);
-    this.service = this.injector.get(type === BackendType.Rest ? RestTodoService : GraphqlTodoService);
+  constructor(injector: Injector, config: ConfigService, route: ActivatedRoute) {
+    console.log('Calling constructor');
+    route.queryParamMap.subscribe(queryMap => {
+      if (!queryMap.has('backendType')) {
+        console.log(`Loading default backend (${config.defaultBackend === BackendType.Rest ? 'REST' : 'GraphQL'})`);
+        this.service = injector.get(config.defaultBackend === BackendType.Rest ? RestTodoService : GraphqlTodoService);
+      } else {
+        const type = queryMap.get('backendType');
+        console.log(`Loading ${type.toLowerCase() === 'rest' ? 'REST' : 'GraphQL'} backend`);
+        this.service = injector.get(type.toLowerCase() === 'rest' ? RestTodoService : GraphqlTodoService);
+      }
+    });
   }
 
   public delete(id: number): Observable<boolean> {

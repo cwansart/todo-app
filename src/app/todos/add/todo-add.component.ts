@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TodoService } from '../service/todo.service';
 import moment from 'moment';
-import { BackendSelectionService } from '../service/backend-selection.service';
 
 @Component({
   templateUrl: './todo-add.component.html',
@@ -13,7 +13,7 @@ export class TodoAddComponent {
   public done: boolean;
   public lockForm = false;
 
-  constructor(private service: BackendSelectionService, private router: Router) {
+  constructor(private service: TodoService, private router: Router) {
   }
 
   public onSubmit() {
@@ -25,11 +25,11 @@ export class TodoAddComponent {
       done: !!this.done,
     }).subscribe(todo => {
       this.lockForm = false;
-      this.router.navigate(['/todos', todo.id]);
+      this.router.navigate(['/todos', todo.id], { queryParamsHandling: 'merge'});
     }, error => {
       // TODO: add error handling in the frontend
       console.error('Could not add todo due to an error', error);
-      this.router.navigate(['/todos']);
+      this.router.navigate(['/todos'], { queryParamsHandling: 'merge' });
     });
   }
 }

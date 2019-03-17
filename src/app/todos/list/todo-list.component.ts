@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../todo';
 import { Observable } from 'rxjs';
-import { BackendSelectionService } from '../service/backend-selection.service';
+import { TodoService } from '../service/todo.service';
 
 @Component({
   templateUrl: './todo-list.component.html',
@@ -9,7 +9,7 @@ import { BackendSelectionService } from '../service/backend-selection.service';
 export class TodoListComponent implements OnInit {
   public todos: Observable<Todo[]>;
 
-  constructor(private service: BackendSelectionService) {
+  constructor(private service: TodoService) {
   }
 
   public ngOnInit() {

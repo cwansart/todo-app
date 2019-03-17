@@ -32,6 +32,6 @@
 
   <div class="form-control">
     <input type="submit" class="btn btn--blue" value="hinzufügen" [disabled]="form.invalid">&nbsp;
-    <a routerLink="/todos" class="link">zurück zur Übersicht</a>
+    <a routerLink="/todos" queryParamsHandling="merge" class="link">zurück zur Übersicht</a>
   </div>
 </form>
