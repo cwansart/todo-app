@@ -1,3 +1,21 @@
+.flex-container {
+  display: flex;
+  flex-direction: row; /* Standardwert */
+  justify-content: flex-start; /* Standardwert */
+  flex-wrap: wrap;
+}
+
+.flex-item {
+  flex: 0 1 auto;
+  min-width: 530px;
+}
+
+.sse-table {
+  overflow: auto;
+  max-height: 20em;
+}
+
+
 /* Lato Fonts, see: http://www.latofonts.com/, license: Open Font License */
 /* latin-ext */
 @font-face {

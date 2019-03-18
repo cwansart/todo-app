@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,14 +14,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { BackendType, ConfigService } from './todos/service/config.service';
+import { ConfigService } from './todos/service/config.service';
 import { TodoService } from './todos/service/todo.service';
-import { ActivatedRoute } from '@angular/router';
-import { RestTodoService } from './todos/service/rest-todo.service';
-import { GraphqlTodoService } from './todos/service/graphql-todo.service';
-import { map } from 'rxjs/operators';
-import { Todo } from './todos/todo';
 import { BackendSelectionService } from './todos/service/backend-selection.service';
+import { SseBoxComponent } from './todos/server-sent-events/sse-box.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +28,7 @@ import { BackendSelectionService } from './todos/service/backend-selection.servi
     TodoEditComponent,
     ErrorDirective,
     DateValidationDirective,
+    SseBoxComponent,
   ],
   imports: [
     BrowserModule,
