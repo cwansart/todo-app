@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { ConfigService } from '../service/config.service';
+import { BackendType, ConfigService } from '../service/config.service';
+import { ActivatedRoute } from '@angular/router';
 
 enum MessageType {
   Create = 'CREATE',
@@ -18,10 +19,19 @@ interface Message {
   templateUrl: './sse-box.component.html',
 })
 export class SseBoxComponent implements OnInit, OnDestroy {
+  private sseUrl: string;
   private subscription: Subscription;
   public events: Observable<Message[]>;
 
-  constructor(private config: ConfigService) {
+  constructor(injector: Injector, config: ConfigService, route: ActivatedRoute) {
+    route.queryParamMap.subscribe(queryMap => {
+      if (!queryMap.has('backendType')) {
+        this.sseUrl = config.defaultBackend === BackendType.Rest ? config.restSseUrl : config.graphqlSseUrl;
+      } else {
+        const type = queryMap.get('backendType');
+        this.sseUrl = type === 'rest' ? config.restSseUrl : config.graphqlSseUrl;
+      }
+    });
   }
 
   public ngOnInit() {
@@ -32,7 +42,7 @@ export class SseBoxComponent implements OnInit, OnDestroy {
         subscriber.next(eventCache);
       };
 
-      const source = new EventSource(this.config.sseUrl);
+      const source = new EventSource(this.sseUrl);
       source.addEventListener('Todo created', (e: MessageEvent) => handleMessage({
         type: MessageType.Create,
         message: JSON.parse(e.data),

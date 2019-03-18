@@ -9,7 +9,8 @@ export enum BackendType {
   providedIn: 'root',
 })
 export class ConfigService {
-  public readonly sseUrl = 'http://localhost:8080/todo-list-rest/api/todos/all/events';
+  public readonly graphqlSseUrl = 'http://localhost:8081/todo-list-graphql/todos/all/events';
+  public readonly restSseUrl = 'http://localhost:8080/todo-list-rest/api/todos/all/events';
   public readonly restBackendUrl = 'http://localhost:8080/todo-list-rest/api';
   public readonly graphqlBackendUrl = 'http://localhost:8081/todo-list-graphql/graphql';
   public readonly defaultBackend: BackendType = BackendType.Rest;
