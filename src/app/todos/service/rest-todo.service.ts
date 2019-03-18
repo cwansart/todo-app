@@ -38,7 +38,7 @@ export class RestTodoService implements TodoService {
   public delete(id: number): Observable<boolean> {
     console.log(`Calling RestTodoService.delete with id ${id}`);
     return this.http.delete<null>(`${this.config.restBackendUrl}/todos/${id}`).pipe(
-      pipe(() => of(true)),
+      map(() => true),
       catchError((err) => {
         console.error('Could not delete todo', err);
         return of(false);
@@ -54,7 +54,7 @@ export class RestTodoService implements TodoService {
       dueDate: changed.dueDate,
       done: changed.done
     }).pipe(
-      pipe(() => of(true)),
+      map(() => true),
       catchError((err) => {
         console.error('Could not update todo', err);
         return of(false);
