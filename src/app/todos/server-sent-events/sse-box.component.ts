@@ -23,18 +23,23 @@ export class SseBoxComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public events: Observable<Message[]>;
 
-  constructor(injector: Injector, config: ConfigService, route: ActivatedRoute) {
-    route.queryParamMap.subscribe(queryMap => {
-      if (!queryMap.has('backendType')) {
-        this.sseUrl = config.defaultBackend === BackendType.Rest ? config.restSseUrl : config.graphqlSseUrl;
-      } else {
-        const type = queryMap.get('backendType');
-        this.sseUrl = type === 'rest' ? config.restSseUrl : config.graphqlSseUrl;
-      }
-    });
+  constructor(private injector: Injector, private config: ConfigService, private route: ActivatedRoute) {
   }
 
   public ngOnInit() {
+    this.route.queryParamMap.subscribe(queryMap => {
+      if (!queryMap.has('backendType')) {
+        this.sseUrl = this.config.defaultBackend === BackendType.Rest ? this.config.restSseUrl : this.config.graphqlSseUrl;
+      } else {
+        const type = queryMap.get('backendType');
+        console.log('type', type);
+        this.sseUrl = type === 'rest' ? this.config.restSseUrl : this.config.graphqlSseUrl;
+      }
+      this.initListener();
+    });
+  }
+
+  private initListener() {
     this.events = new Observable<Message[]>(subscriber => {
       const eventCache = [];
       const handleMessage = (message: Message) => {
