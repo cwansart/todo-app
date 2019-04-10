@@ -1,11 +1,18 @@
 import { Injectable, Injector } from '@angular/core';
-import { TodoService } from './todo.service';
-import { RestTodoService } from './rest-todo.service';
-import { GraphqlTodoService } from './graphql-todo.service';
-import { Todo } from '../todo';
-import { Observable } from 'rxjs';
-import { BackendType, ConfigService } from './config.service';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Todo } from '../todo';
+import { ConfigService } from './config.service';
+import { GraphqlTodoService } from './graphql-todo.service';
+import { RestTodoService } from './rest-todo.service';
+import { TodoService } from './todo.service';
+import { WebSocketTodoService } from './web-socket-todo.service';
+
+const SERVICE_MAP: {[key: string]: any} = {
+  rest: RestTodoService,
+  graphql: GraphqlTodoService,
+  websocket: WebSocketTodoService,
+};
 
 @Injectable({
   providedIn: 'root',
@@ -15,13 +22,13 @@ export class BackendSelectionService implements TodoService {
 
   constructor(injector: Injector, config: ConfigService, route: ActivatedRoute) {
     route.queryParamMap.subscribe(queryMap => {
-      if (!queryMap.has('backendType')) {
-        console.log(`Loading default backend (${config.defaultBackend === BackendType.Rest ? 'REST' : 'GraphQL'})`);
-        this.service = injector.get(config.defaultBackend === BackendType.Rest ? RestTodoService : GraphqlTodoService);
+      if (!queryMap.has('backendType') || !Object.keys(SERVICE_MAP).includes(queryMap.get('backendType').toLocaleLowerCase())) {
+        console.log(`Loading default backend (${config.defaultBackend})`);
+        this.service = injector.get(SERVICE_MAP[config.defaultBackend.toLowerCase()]);
       } else {
         const type = queryMap.get('backendType');
-        console.log(`Loading ${type.toLowerCase() === 'rest' ? 'REST' : 'GraphQL'} backend`);
-        this.service = injector.get(type.toLowerCase() === 'rest' ? RestTodoService : GraphqlTodoService);
+        console.log(`Loading ${type} backend`);
+        this.service = injector.get(SERVICE_MAP[type.toLowerCase()]);
       }
     });
   }

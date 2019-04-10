@@ -25,6 +25,10 @@
             <li class="nav__link">
               <a href="/todos?backendType=graphql">GraphQL</a>
             </li>
+
+            <li class="nav__link">
+              <a href="/todos?backendType=websocket">WebSocket</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -37,7 +41,7 @@
   <router-outlet></router-outlet>
 </div>
 
-<app-sse-box></app-sse-box>
+<app-sse-box *ngIf="isSseAvailable"></app-sse-box>
 
 <footer>
   <div class="container">
