@@ -4,6 +4,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { Todo } from '../todo';
 import { ConfigService } from './config.service';
 import { TodoService } from './todo.service';
+import moment from 'moment';
 
 enum TodoMessageType {
   Create = 'CREATE_TODO',
@@ -71,17 +72,11 @@ export class WebSocketTodoService implements TodoService {
 
       switch (message.type) {
         case ResponseType.GetAll:
-          this.getAllQueue.next(message.data.map(msg => ({
-            ...msg,
-            dueDate: new Date(msg.dueDate.year, msg.dueDate.monthValue, msg.dueDate.dayOfMonth),
-          })));
+          this.getAllQueue.next(message.data);
           break;
 
         case ResponseType.Get:
-          this.getQueue.next({
-            ...message.data,
-            dueDate: new Date(message.data.dueDate.year, message.data.dueDate.monthValue, message.data.dueDate.dayOfMonth)
-          });
+          this.getQueue.next(message.data);
           break;
 
         case ResponseType.Create:
@@ -104,8 +99,14 @@ export class WebSocketTodoService implements TodoService {
   }
 
   public post(todo: Todo): Observable<Todo> {
-    console.log(`Calling WebSocketTodoService.post with todo`, todo);
-    this.messageQueue.next({ type: TodoMessageType.Create, data: todo });
+    const newTodo = {
+      type: TodoMessageType.Create, data: {
+        ...todo,
+        dueDate: moment(todo.dueDate).format('YYYY-MM-DD[T]HH:mm:ss[Z]'),
+      }
+    };
+    console.log(`Calling WebSocketTodoService.post with todo`, newTodo);
+    this.messageQueue.next(newTodo);
     return this.postQueue.asObservable();
   }
 
@@ -116,8 +117,15 @@ export class WebSocketTodoService implements TodoService {
   }
 
   public put(id: number, changed: Todo): Observable<boolean> {
-    console.log(`Calling WebSocketTodoService.get with id ${id} and todo`, changed);
-    this.messageQueue.next({ type: TodoMessageType.Delete, data: { ...changed, id } });
+    const todo = {
+      type: TodoMessageType.Update, data: {
+        ...changed,
+        id,
+        dueDate: moment(changed.dueDate).format('YYYY-MM-DD[T]HH:mm:ss[Z]'),
+      }
+    };
+    console.log(`Calling WebSocketTodoService.put with id ${id} and todo`, todo);
+    this.messageQueue.next(todo);
     return of(true);
   }
 }
